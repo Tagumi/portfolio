@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Freelance Web Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --off-white: #f8f8f6;
+    --gray-50: #f4f4f2;
+    --gray-100: #e8e8e4;
+    --gray-200: #d0d0cb;
+    --gray-400: #9a9a93;
+    --gray-600: #5a5a55;
+    --gray-800: #2a2a26;
+    --black: #111110;
+    --accent: #1a1a18;
+    --accent-line: #d4d4cc;
+    --tag-bg: #f0f0ec;
+    --tag-border: #dcdcd6;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', 'Noto Sans JP', sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--gray-100);
+    padding: 0 clamp(1.5rem, 5vw, 4rem);
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--black);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gray-600);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--black); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 0 clamp(1.5rem, 8vw, 8rem);
+    padding-top: 56px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 55vw;
+    height: 110vh;
+    background: var(--gray-50);
+    z-index: 0;
+    border-radius: 2px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+  }
+
+  .hero-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.1s forwards;
+  }
+
+  .hero-name {
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--black);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.25s forwards;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--gray-600);
+  }
+
+  .hero-title {
+    font-size: clamp(1rem, 2vw, 1.15rem);
+    font-weight: 300;
+    color: var(--gray-600);
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.55s forwards;
+  }
+
+  .badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 5px 12px;
+    border: 1px solid var(--tag-border);
+    background: var(--tag-bg);
+    color: var(--gray-600);
+    letter-spacing: 0.06em;
+    border-radius: 2px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    background: var(--black);
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-cta:hover { background: var(--gray-800); transform: translateY(-1px); }
+  .hero-cta svg { width: 14px; height: 14px; }
+
+  /* ── SECTION BASE ── */
+  section {
+    padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 8vw, 8rem);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gray-400);
+    margin-bottom: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--gray-200);
+  }
+
+  .section-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--black);
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── SKILLS ── */
+  #skills { background: var(--white); }
+
+  .skills-intro {
+    font-size: 1rem;
+    color: var(--gray-600);
+    max-width: 560px;
+    margin-bottom: 4rem;
+    font-weight: 300;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-100);
+  }
+
+  .skill-card {
+    background: var(--white);
+    padding: 2rem;
+    transition: background 0.2s;
+  }
+
+  .skill-card:hover { background: var(--gray-50); }
+
+  .skill-card-icon {
+    font-family: var(--mono);
+    font-size: 20px;
+    margin-bottom: 1rem;
+    color: var(--black);
+  }
+
+  .skill-card-title {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    padding: 4px 10px;
+    background: var(--tag-bg);
+    border: 1px solid var(--tag-border);
+    color: var(--gray-600);
+    border-radius: 1px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── STACK BAR ── */
+  .stack-section {
+    background: var(--off-white);
+    padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 8vw, 8rem);
+  }
+
+  .stack-list {
+    display: grid;
+    gap: 1.25rem;
+    max-width: 680px;
+  }
+
+  .stack-row {
+    display: grid;
+    grid-template-columns: 140px 1fr 36px;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .stack-name {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--gray-600);
+    letter-spacing: 0.06em;
+  }
+
+  .stack-bar-bg {
+    height: 3px;
+    background: var(--gray-200);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .stack-bar-fill {
+    height: 100%;
+    background: var(--black);
+    border-radius: 2px;
+    width: 0;
+    transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .stack-pct {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--gray-400);
+    text-align: right;
+  }
+
+  /* ── CAREER ── */
+  #career { background: var(--white); }
+
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    max-width: 640px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--gray-100);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding-bottom: 3rem;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: opacity 0.6s, transform 0.6s;
+  }
+
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2.375rem;
+    top: 8px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--black);
+    border: 2px solid var(--white);
+    outline: 1px solid var(--gray-200);
+  }
+
+  .timeline-period {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-org {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 0.25rem;
+  }
+
+  .timeline-role {
+    font-size: 13px;
+    color: var(--gray-600);
+    margin-bottom: 0.75rem;
+    font-family: var(--mono);
+  }
+
+  .timeline-desc {
+    font-size: 13.5px;
+    color: var(--gray-600);
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* ── CERTS ── */
+  .certs-section {
+    background: var(--gray-50);
+    padding: clamp(4rem, 10vw, 8rem) clamp(1.5rem, 8vw, 8rem);
+  }
+
+  .certs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-100);
+  }
+
+  .cert-item {
+    background: var(--white);
+    padding: 1.75rem;
+  }
+
+  .cert-icon {
+    font-family: var(--mono);
+    font-size: 22px;
+    margin-bottom: 0.75rem;
+  }
+
+  .cert-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--black);
+    line-height: 1.4;
+  }
+
+  .cert-sub {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    color: var(--gray-400);
+    margin-top: 0.25rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── SERVICES ── */
+  #services { background: var(--white); }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+  }
+
+  .service-card {
+    border: 1px solid var(--gray-100);
+    padding: 2rem;
+    border-radius: 2px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+
+  .service-card:hover {
+    border-color: var(--gray-200);
+    transform: translateY(-2px);
+  }
+
+  .service-num {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: var(--gray-400);
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+  }
+
+  .service-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--black);
+    margin-bottom: 0.75rem;
+  }
+
+  .service-desc {
+    font-size: 13.5px;
+    color: var(--gray-600);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section {
+    background: var(--black);
+    padding: clamp(5rem, 12vw, 10rem) clamp(1.5rem, 8vw, 8rem);
+    color: var(--white);
+  }
+
+  .contact-section .section-label {
+    color: rgba(255,255,255,0.35);
+  }
+
+  .contact-section .section-label::after {
+    background: rgba(255,255,255,0.12);
+  }
+
+  .contact-lead {
+    font-size: clamp(1.6rem, 4vw, 3rem);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+    max-width: 560px;
+    line-height: 1.2;
+  }
+
+  .contact-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    max-width: 440px;
+  }
+
+  .contact-avail {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.4);
+    margin-top: 2.5rem;
+  }
+
+  .avail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #7bcf7b;
+    animation: pulse 2s infinite;
+  }
+
+  .contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--white);
+    padding: 14px 28px;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .contact-btn:hover { background: var(--gray-100); transform: translateY(-1px); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding: 2rem clamp(1.5rem, 8vw, 8rem);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.06em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero::before { display: none; }
+    .stack-row { grid-template-columns: 110px 1fr 30px; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">PORTFOLIO</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#career">Career</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-label">Freelance Web Engineer</p>
+    <h1 class="hero-name">Web &amp; System<br><em>Engineering.</em></h1>
+    <p class="hero-title">15年のシステム開発・カスタマーエンジニア経験をベースに、品質とユーザー体験を最優先したWebサイト・システム開発を提供します。</p>
+    <div class="hero-badges">
+      <span class="badge">QA Engineer</span>
+      <span class="badge">WordPress</span>
+      <span class="badge">HTML / CSS / JS</span>
+      <span class="badge">平日8h対応</span>
+      <span class="badge">応用情報技術者</span>
+    </div>
+    <a href="#contact" class="hero-cta">
+      お仕事のご相談
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-label">01 — Skills</p>
+  <h2 class="section-title">技術スキル &amp;<br>使用ツール</h2>
+  <p class="skills-intro">フロントエンド開発からシステム品質管理・動画制作まで、幅広い技術スタックで対応可能です。</p>
+
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-card-icon">&lt;/&gt;</div>
+      <p class="skill-card-title">フロントエンド言語</p>
+      <div class="skill-tags">
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">PHP</span>
+        <span class="skill-tag">Python</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">⬜</div>
+      <p class="skill-card-title">CMS / No-Code</p>
+      <div class="skill-tags">
+        <span class="skill-tag">WordPress</span>
+        <span class="skill-tag">Studio</span>
+        <span class="skill-tag">Canva</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">✦</div>
+      <p class="skill-card-title">デザイン・制作</p>
+      <div class="skill-tags">
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">Illustrator</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">Premiere Pro</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">⌥</div>
+      <p class="skill-card-title">開発ツール</p>
+      <div class="skill-tags">
+        <span class="skill-tag">VS Code</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">Claude</span>
+        <span class="skill-tag">Notion</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">◎</div>
+      <p class="skill-card-title">QA / ドキュメント</p>
+      <div class="skill-tags">
+        <span class="skill-tag">品質管理</span>
+        <span class="skill-tag">ヘルプページ</span>
+        <span class="skill-tag">受入検証</span>
+        <span class="skill-tag">テスト設計</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-card-icon">▶</div>
+      <p class="skill-card-title">動画・SNS</p>
+      <div class="skill-tags">
+        <span class="skill-tag">動画編集</span>
+        <span class="skill-tag">広告動画</span>
+        <span class="skill-tag">YouTube</span>
+        <span class="skill-tag">SNS運営</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK LEVEL -->
+<div class="stack-section">
+  <p class="section-label">スキルレベル</p>
+  <div class="stack-list" id="stackList">
+    <div class="stack-row" data-pct="95">
+      <span class="stack-name">HTML / CSS</span>
+      <div class="stack-bar-bg"><div class="stack-bar-fill"></div></div>
+      <span class="stack-pct">95%</span>
+    </div>
+    <div class="stack-row" data-pct="80">
+      <span class="stack-name">JavaScript</span>
+      <div class="stack-bar-bg"><div class="stack-bar-fill"></div></div>
+      <span class="stack-pct">80%</span>
+    </div>
+    <div class="stack-row" data-pct="90">
+      <span class="stack-name">WordPress</span>
+      <div class="stack-bar-bg"><div class="stack-bar-fill"></div></div>
+      <span class="stack-pct">90%</span>
+    </div>
+    <div class="stack-row" data-pct="75">
+      <span class="stack-name">Python / PHP</span>
+      <div class="stack-bar-bg"><div class="stack-bar-fill"></div></div>
+      <span class="stack-pct">75%</span>
+    </div>
+    <div class="stack-row" data-pct="88">
+      <span class="stack-name">Figma</span>
+      <div class="stack-bar-bg"><div class="stack-bar-fill"></div></div>
+      <span class="stack-pct">88%</span>
+    </div>
+    <div class="stack-row" data-pct="92">
+      <span class="stack-name">QA / Testing</span>
+      <div class="stack-bar-bg"><div class="stack-bar-fill"></div></div>
+      <span class="stack-pct">92%</span>
+    </div>
+    <div class="stack-row" data-pct="85">
+      <span class="stack-name">Premiere Pro</span>
+      <div class="stack-bar-bg"><div class="stack-bar-fill"></div></div>
+      <span class="stack-pct">85%</span>
+    </div>
+  </div>
+</div>
+
+<!-- CAREER -->
+<section id="career">
+  <p class="section-label">02 — Career</p>
+  <h2 class="section-title">職歴・経歴</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <p class="timeline-period">国立大学 卒業</p>
+      <p class="timeline-org">国立大学 商学部 企業法学科</p>
+      <p class="timeline-role">卒業</p>
+    </div>
+
+    <div class="timeline-item">
+      <p class="timeline-period">職歴① — 5年間</p>
+      <p class="timeline-org">独立系SIer企業</p>
+      <p class="timeline-role">システムエンジニア</p>
+      <p class="timeline-desc">在来線の運行管理システム開発。日本の総合電機メーカー各社でのアプリ受け入れ検証業務に従事。大規模システム開発の上流〜テスト工程を幅広く経験。</p>
+    </div>
+
+    <div class="timeline-item">
+      <p class="timeline-period">職歴② — 2年間</p>
+      <p class="timeline-org">法律事務所</p>
+      <p class="timeline-role">パラリーガル</p>
+      <p class="timeline-desc">弁護業務に関わる専門事務、官公庁業務を担当。法律・行政分野の文書作成・折衝スキルを習得。</p>
+    </div>
+
+    <div class="timeline-item">
+      <p class="timeline-period">現在 ①</p>
+      <p class="timeline-org">SaaSスタートアップ企業</p>
+      <p class="timeline-role">Quality Assurance Engineer</p>
+      <p class="timeline-desc">システムの品質管理全般、ヘルプページ作成・整備を担当。アジャイル開発環境でのQAプロセス設計・実施。</p>
+    </div>
+
+    <div class="timeline-item">
+      <p class="timeline-period">現在 ②</p>
+      <p class="timeline-org">インターネット人材サービス企業</p>
+      <p class="timeline-role">Customer Engineer</p>
+      <p class="timeline-desc">法人向け問い合わせ対応（1日50〜100件）、ヘルプページ作成・運用。高負荷環境でのクオリティ維持と顧客満足度向上を実現。</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTS -->
+<div class="certs-section">
+  <p class="section-label">資格・認定</p>
+  <div class="certs-grid">
+    <div class="cert-item">
+      <div class="cert-icon">◈</div>
+      <p class="cert-name">応用情報技術者</p>
+      <p class="cert-sub">IPA 国家資格</p>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">◈</div>
+      <p class="cert-name">ETEC</p>
+      <p class="cert-sub">組込みシステム技術者試験</p>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">◈</div>
+      <p class="cert-name">ITIL</p>
+      <p class="cert-sub">ITサービスマネジメント</p>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">◈</div>
+      <p class="cert-name">実用英語技能検定 2級</p>
+      <p class="cert-sub">英検 / EIKEN</p>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <p class="section-label">03 — Services</p>
+  <h2 class="section-title">提供サービス</h2>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <p class="service-num">01</p>
+      <p class="service-title">Webサイト・LP制作</p>
+      <p class="service-desc">HTML/CSS/JavaScript + レスポンシブ対応のWebサイト・ランディングページを制作。デザインからコーディングまで一貫対応。</p>
+    </div>
+
+    <div class="service-card">
+      <p class="service-num">02</p>
+      <p class="service-title">WordPress / Studio構築</p>
+      <p class="service-desc">WordPressおよびStudioを用いたCMSサイト構築・既存サイトのWordPress移行に対応。管理のしやすさも考慮した設計。</p>
+    </div>
+
+    <div class="service-card">
+      <p class="service-num">03</p>
+      <p class="service-title">QA・品質管理支援</p>
+      <p class="service-desc">Webシステムの品質管理・テスト設計・実施。ヘルプページ・マニュアル作成。品質保証の視点からシステム全体をサポート。</p>
+    </div>
+
+    <div class="service-card">
+      <p class="service-num">04</p>
+      <p class="service-title">動画制作・SNS運営</p>
+      <p class="service-desc">Premiere Proを用いた動画編集・広告動画制作。YouTube・SNSの管理・運営・コンテンツ企画支援。</p>
+    </div>
+
+    <div class="service-card">
+      <p class="service-num">05</p>
+      <p class="service-title">デザイン制作</p>
+      <p class="service-desc">Figma・Illustrator・Photoshopを用いたUI設計・バナー・各種グラフィック制作。Webとデザイン両面から対応。</p>
+    </div>
+
+    <div class="service-card">
+      <p class="service-num">06</p>
+      <p class="service-title">カスタマーサポート構築</p>
+      <p class="service-desc">ヘルプページ設計・作成・運用。1日100件規模の問い合わせ対応経験を活かし、FAQ整備・サポートフロー最適化を支援。</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact-section" id="contact">
+  <p class="section-label">04 — Contact</p>
+  <h2 class="contact-lead">お仕事の<br>ご相談はお気軽に。</h2>
+  <p class="contact-sub">品質担保と納期厳守をお約束します。平日8時間対応可能です。まずはお気軽にご連絡ください。</p>
+  <a href="mailto:michiko.ohtai@gmail.com" class="contact-btn">
+    メールでお問い合わせ
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+  </a>
+  <div class="contact-avail">
+    <span class="avail-dot"></span>
+    現在、新規案件受付中
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2025 Freelance Web Engineer Portfolio</p>
+  <p>HTML · CSS · JS · WordPress · QA</p>
+</footer>
+
+<script>
+  // スタックバーのアニメーション（Intersection Observer）
+  const stackObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const rows = entry.target.querySelectorAll('.stack-row');
+        rows.forEach((row, i) => {
+          const pct = row.dataset.pct;
+          setTimeout(() => {
+            row.querySelector('.stack-bar-fill').style.width = pct + '%';
+          }, i * 80);
+        });
+        stackObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  const stackList = document.getElementById('stackList');
+  if (stackList) stackObserver.observe(stackList);
+
+  // タイムラインのフェードイン
+  const timelineObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.timeline-item').forEach(el => {
+    timelineObserver.observe(el);
+  });
+</script>
+</body>
+</html>
