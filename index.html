@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio | Freelance Web Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0f;
+      --bg2: #141418;
+      --bg3: #1c1c22;
+      --accent: #7c6df0;
+      --accent2: #a78bfa;
+      --accent3: #c4b5fd;
+      --text: #f0eff8;
+      --text2: #a09ab8;
+      --text3: #6b6480;
+      --border: rgba(124,109,240,0.18);
+      --card: rgba(28,28,34,0.8);
+      --radius: 16px;
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Noto Sans JP', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* ===== NOISE OVERLAY ===== */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(13,13,15,0.7);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      background: linear-gradient(135deg, #fff 0%, var(--accent2) 50%, var(--accent3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+      position: relative;
+      filter: drop-shadow(0 0 12px rgba(167,139,250,0.5));
+      transition: filter var(--transition);
+    }
+
+    .nav-logo:hover {
+      filter: drop-shadow(0 0 20px rgba(167,139,250,0.9));
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text2);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* ===== HERO ===== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 120px 48px 80px;
+      overflow: hidden;
+    }
+
+    /* Gradient orbs */
+    #hero::after {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(124,109,240,0.15) 0%, transparent 70%);
+      top: 10%;
+      right: -10%;
+      pointer-events: none;
+    }
+
+    .hero-orb2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167,139,250,0.08) 0%, transparent 70%);
+      bottom: 10%;
+      left: -5%;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 900px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(167,139,250,0.4);
+      box-shadow: 0 0 24px rgba(124,109,240,0.4), 0 0 60px rgba(124,109,240,0.15);
+      flex-shrink: 0;
+    }
+
+    .hero-greeting-row {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 32px;
+      margin-bottom: 24px;
+    }
+
+    .hero-greeting {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 0;
+    }
+
+    .hero-greeting-text {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 0.08em;
+    }
+
+    .hero-greeting-line {
+      flex: 0 0 40px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    .hero-greeting-name {
+      background: linear-gradient(135deg, #fff 0%, var(--accent2) 50%, var(--accent3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(167,139,250,0.5));
+    }
+
+    .hero-greeting-ja {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      background: linear-gradient(120deg, #fff 0%, var(--accent3) 60%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 28px;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent3);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      background: rgba(124,109,240,0.08);
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #fff 0%, var(--accent2) 50%, var(--accent) 100%);
+      box-shadow: 0 0 6px 2px rgba(167,139,250,0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 6px 2px rgba(167,139,250,0.7); }
+      50% { opacity: 0.6; transform: scale(0.75); box-shadow: 0 0 2px 1px rgba(167,139,250,0.3); }
+    }
+
+    .hero-title {
+      font-size: clamp(42px, 7vw, 80px);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--accent2) 0%, var(--accent3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text2);
+      max-width: 520px;
+      margin-bottom: 48px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: all var(--transition);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      color: #fff;
+      box-shadow: 0 0 32px rgba(124,109,240,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 48px rgba(124,109,240,0.5);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text2);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(124,109,240,0.08);
+      color: var(--text);
+      border-color: var(--accent);
+    }
+
+    /* ===== SECTION BASE ===== */
+    section {
+      padding: 120px 48px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      color: var(--text2);
+      max-width: 540px;
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 64px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* ===== ABOUT ===== */
+    #about {
+      background: var(--bg2);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--text2);
+      font-size: 15px;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .about-text p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      backdrop-filter: blur(10px);
+      transition: border-color var(--transition);
+    }
+
+    .stat-card:hover { border-color: var(--accent); }
+
+    .stat-number {
+      font-size: 36px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text3);
+      font-weight: 400;
+    }
+
+    /* ===== SKILLS ===== */
+    #skills {
+      background: var(--bg);
+    }
+
+    .skills-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+
+    .skill-category h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text3);
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .skill-tag {
+      padding: 8px 18px;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text2);
+      background: var(--bg3);
+      transition: all var(--transition);
+      cursor: default;
+    }
+
+    .skill-tag:hover {
+      border-color: var(--accent);
+      color: var(--accent3);
+      background: rgba(124,109,240,0.1);
+      transform: translateY(-2px);
+    }
+
+    .skill-tag.featured {
+      border-color: rgba(124,109,240,0.4);
+      color: var(--accent3);
+      background: rgba(124,109,240,0.12);
+    }
+
+    /* ===== CAREER ===== */
+    #career {
+      background: var(--bg2);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 48px;
+    }
+
+    .timeline-item:last-child { padding-bottom: 0; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -36px;
+      top: 6px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(124,109,240,0.6);
+    }
+
+    .timeline-date {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .timeline-role {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .timeline-org {
+      font-size: 13px;
+      color: var(--text3);
+      margin-bottom: 12px;
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.8;
+    }
+
+    .timeline-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .timeline-tag {
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      background: rgba(124,109,240,0.1);
+      color: var(--accent3);
+      border: 1px solid rgba(124,109,240,0.2);
+    }
+
+    /* ===== CERTS ===== */
+    #certs {
+      background: var(--bg);
+    }
+
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .cert-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: all var(--transition);
+    }
+
+    .cert-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+    }
+
+    .cert-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(124,109,240,0.3), rgba(167,139,250,0.3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .cert-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .cert-desc {
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    /* ===== CONTACT ===== */
+    #contact {
+      background: var(--bg2);
+    }
+
+    .contact-card {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 64px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    }
+
+    .contact-card h2 {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+
+    .contact-card p {
+      color: var(--text2);
+      font-size: 16px;
+      margin-bottom: 40px;
+      max-width: 460px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 48px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+
+    .contact-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact-item-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text3);
+    }
+
+    .contact-item-value {
+      font-size: 14px;
+      color: var(--text2);
+    }
+
+    .contact-form {
+      max-width: 480px;
+      margin: 40px auto 0;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      text-align: left;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--text3);
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: border-color var(--transition);
+      width: 100%;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit {
+      margin-top: 8px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 40px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent2), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text3);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text3);
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--text2); }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0 48px;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      #hero { padding: 100px 24px 60px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact-card { padding: 40px 24px; }
+      footer { padding: 32px 24px; }
+      .divider { margin: 0 24px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* ===== FADE IN ANIMATION ===== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="nav-logo">Tagumi</div>
+      <div class="hero-tag" style="margin-bottom:0;">Freelance Web Engineer</div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#certs">Certs</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-orb2"></div>
+    <div class="hero-content">
+      <div class="hero-greeting-row">
+        <div class="hero-greeting">
+          <span class="hero-greeting-line"></span>
+          <span class="hero-greeting-text">Hello,<br />I'm <span class="hero-greeting-name">Tagumi</span></span>
+        </div>
+        <img src="preview.webp" alt="Tagumi" class="hero-avatar" />
+      </div>
+      <h1 class="hero-title">
+        WordPressから<br />
+        <span>フルスクラッチまで</span><br />
+        Webを作り上げる。
+      </h1>
+      <p class="hero-sub">
+        IT業界15年のキャリアを持つフリーランスWebエンジニア。<br />
+        WordPress・HTML/CSS/JS・LP制作まで、品質と納期にコミットします。
+      </p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn btn-primary">お問い合わせ →</a>
+        <a href="#skills" class="btn btn-ghost">スキルを見る</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid fade-in">
+        <div>
+          <p class="section-label">About</p>
+          <h2 class="section-title">ユーザーファーストな<br />ものづくり。</h2>
+          <div class="about-text">
+            <p>
+              <strong>システムエンジニア・カスタマーエンジニアとして15年以上</strong>、システム開発・保守・品質管理・ユーザーエクスペリエンスの分野に従事してきました。
+            </p>
+            <p>
+              在来線の運行管理システム開発から法律事務所でのパラリーガル業務、SaaSスタートアップでのQAエンジニアまで、多彩な現場で培った視点が強みです。
+            </p>
+            <p>
+              現在はWordPressを用いたWebサイト構築・LP制作・動画編集を中心に、フリーランスとして案件に取り組んでいます。<strong>平日8時間・在宅対応可能</strong>です。
+            </p>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">15+</div>
+            <div class="stat-label">年のIT業界経験</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">8h</div>
+            <div class="stat-label">平日稼働時間（在宅）</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">WP</div>
+            <div class="stat-label">WordPress構築・移行</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">QA</div>
+            <div class="stat-label">品質保証エンジニア</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <p class="section-label fade-in">Skills</p>
+      <h2 class="section-title fade-in">技術スタック</h2>
+      <p class="section-desc fade-in">フロントエンドからCMS構築、デザインツール、動画制作まで幅広く対応します。</p>
+
+      <div class="skills-wrapper fade-in">
+
+        <div class="skill-category">
+          <h3>Web制作 / CMS</h3>
+          <div class="skill-tags">
+            <span class="skill-tag featured">WordPress</span>
+            <span class="skill-tag featured">Studio</span>
+            <span class="skill-tag">HTML5</span>
+            <span class="skill-tag">CSS3</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">PHP</span>
+            <span class="skill-tag">レスポンシブデザイン</span>
+            <span class="skill-tag">LP制作</span>
+            <span class="skill-tag">WP移行</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>その他言語 / ツール</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">Git / GitHub</span>
+            <span class="skill-tag">Visual Studio Code</span>
+            <span class="skill-tag">Figma</span>
+            <span class="skill-tag">Notion</span>
+            <span class="skill-tag">Claude（AI活用）</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>デザイン / クリエイティブ</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">Illustrator</span>
+            <span class="skill-tag">Photoshop</span>
+            <span class="skill-tag">Canva</span>
+            <span class="skill-tag">Premiere Pro</span>
+            <span class="skill-tag">動画編集</span>
+            <span class="skill-tag">広告動画制作</span>
+            <span class="skill-tag">SNS運用</span>
+            <span class="skill-tag">YouTube管理</span>
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>その他専門スキル</h3>
+          <div class="skill-tags">
+            <span class="skill-tag">品質保証（QA）</span>
+            <span class="skill-tag">ヘルプページ作成</span>
+            <span class="skill-tag">法律・契約知識</span>
+            <span class="skill-tag">官公庁業務対応</span>
+            <span class="skill-tag">英語（英検2級）</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section id="career">
+    <div class="container">
+      <p class="section-label fade-in">Career</p>
+      <h2 class="section-title fade-in">経歴</h2>
+      <p class="section-desc fade-in">多様な業界でのキャリアが、幅広いニーズへの対応力を生んでいます。</p>
+
+      <div class="timeline fade-in">
+
+        <div class="timeline-item">
+          <div class="timeline-date">現在</div>
+          <div class="timeline-role">QAエンジニア / Webサイト構築</div>
+          <div class="timeline-org">SaaSスタートアップ ／ インターネット人材サービス企業</div>
+          <div class="timeline-desc">
+            システムの品質管理・ヘルプページ作成、法人向け問い合わせ対応（1日50〜100件）を担当。
+            WordPressを用いたWebサイト構築を並行して行う。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">QA</span>
+            <span class="timeline-tag">WordPress</span>
+            <span class="timeline-tag">カスタマーサポート</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">法律事務所（約2年）</div>
+          <div class="timeline-role">パラリーガル</div>
+          <div class="timeline-org">法律事務所</div>
+          <div class="timeline-desc">
+            弁護業務に関わる専門事務を担当。官公庁での業務経験を積む。
+            契約・法律知識を蓄積し、クライアント対応力を向上。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">法律知識</span>
+            <span class="timeline-tag">官公庁対応</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">独立系SIer（約5年）</div>
+          <div class="timeline-role">システムエンジニア</div>
+          <div class="timeline-org">独立系SIer企業</div>
+          <div class="timeline-desc">
+            在来線の運行管理システム開発、日本の総合電機メーカー各社でのアプリ受け入れ検証を担当。
+            大規模システムの開発・品質管理に従事。
+          </div>
+          <div class="timeline-tags">
+            <span class="timeline-tag">システム開発</span>
+            <span class="timeline-tag">品質管理</span>
+            <span class="timeline-tag">運行管理システム</span>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-date">学歴</div>
+          <div class="timeline-role">国立大学 商学部 企業法学科 卒業</div>
+          <div class="timeline-org"></div>
+          <div class="timeline-desc">
+            商学・企業法の専門知識を習得。ビジネスと法律の視点を持つエンジニアとして成長。
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTS -->
+  <section id="certs">
+    <div class="container">
+      <p class="section-label fade-in">Certifications</p>
+      <h2 class="section-title fade-in">資格</h2>
+      <p class="section-desc fade-in">技術力と専門性を証明する資格を保有しています。</p>
+
+      <div class="certs-grid fade-in">
+        <div class="cert-card">
+          <div class="cert-icon">📋</div>
+          <div>
+            <div class="cert-name">応用情報技術者</div>
+            <div class="cert-desc">IPA 国家資格</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🔧</div>
+          <div>
+            <div class="cert-name">ETEC</div>
+            <div class="cert-desc">組込みシステム技術者</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">⚙️</div>
+          <div>
+            <div class="cert-name">ITIL</div>
+            <div class="cert-desc">ITサービスマネジメント</div>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon">🌐</div>
+          <div>
+            <div class="cert-name">英検2級</div>
+            <div class="cert-desc">実用英語技能検定</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card fade-in">
+        <p class="section-label" style="margin-bottom:16px;">Contact</p>
+        <h2>お仕事のご依頼・<br />ご相談はこちら</h2>
+        <p>WordPressサイト構築、LP制作、サイト移行など、<br />お気軽にご相談ください。</p>
+
+        <form class="contact-form" onsubmit="handleSubmit(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label>お名前</label>
+              <input type="text" placeholder="山田 太郎" required />
+            </div>
+            <div class="form-group">
+              <label>会社名</label>
+              <input type="text" placeholder="株式会社〇〇（任意）" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>メールアドレス</label>
+            <input type="email" placeholder="example@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>ご依頼内容</label>
+            <select>
+              <option value="">選択してください</option>
+              <option>WordPressサイト制作</option>
+              <option>LP制作</option>
+              <option>現行サイトのWordPress移行</option>
+              <option>サイト保守・運用</option>
+              <option>動画編集</option>
+              <option>その他</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>メッセージ</label>
+            <textarea placeholder="ご依頼の詳細をお聞かせください。予算・納期・サイト規模などの情報があるとスムーズです。" required></textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">送信する →</button>
+          </div>
+        </form>
+
+        <div class="contact-info">
+          <div class="contact-item">
+            <span class="contact-item-label">稼働</span>
+            <span class="contact-item-value">平日 8時間（在宅）</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">対応エリア</span>
+            <span class="contact-item-value">全国（リモート対応）</span>
+          </div>
+          <div class="contact-item">
+            <span class="contact-item-label">返信</span>
+            <span class="contact-item-value">24時間以内を目安</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <div class="divider"></div>
+  <footer>
+    <div class="footer-logo">Tagumi</div>
+    <p class="footer-copy">© 2024 Tagumi. All rights reserved.</p>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Intersection Observer for fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+
+    // Form submit handler (demo)
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.textContent = '送信しました ✓';
+      btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+      btn.disabled = true;
+    }
+  </script>
+
+</body>
+</html>
