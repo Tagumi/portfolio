@@ -82,12 +82,12 @@
       background-clip: text;
       text-shadow: none;
       position: relative;
-      filter: drop-shadow(0 0 12px rgba(167,139,250,0.5));
-      transition: filter var(--transition);
+      animation: glow-pulse 2s infinite;
     }
 
     .nav-logo:hover {
       filter: drop-shadow(0 0 20px rgba(167,139,250,0.9));
+      animation: none;
     }
 
     .nav-links {
@@ -191,7 +191,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      filter: drop-shadow(0 0 12px rgba(167,139,250,0.5));
+      animation: glow-pulse 2s infinite;
     }
 
     .hero-greeting-ja {
@@ -234,6 +234,11 @@
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); box-shadow: 0 0 6px 2px rgba(167,139,250,0.7); }
       50% { opacity: 0.6; transform: scale(0.75); box-shadow: 0 0 2px 1px rgba(167,139,250,0.3); }
+    }
+
+    @keyframes glow-pulse {
+      0%, 100% { filter: drop-shadow(0 0 20px rgba(167,139,250,1)) drop-shadow(0 0 40px rgba(124,109,240,0.8)); }
+      50% { filter: drop-shadow(0 0 2px rgba(167,139,250,0.1)); }
     }
 
     .hero-title {
@@ -730,10 +735,11 @@
     .footer-logo {
       font-size: 16px;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--accent2), var(--accent3));
+      background: linear-gradient(135deg, #fff 0%, var(--accent2) 50%, var(--accent3) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      animation: glow-pulse 2s infinite;
     }
 
     .footer-copy {
